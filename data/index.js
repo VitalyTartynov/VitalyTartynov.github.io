@@ -93,7 +93,26 @@
 			if (!inTestingMode) {
 				window.speechSynthesis.cancel();
 				inTestingMode = true;
+				testingMode();
+				inTestingMode = false;
 			}
 		});		
 	}
+
+	var testingMode = function () {
+		var numbers = [];
+		for (var i = 0; i < 10; i++) {
+			numbers.push(getRandomInt(0, 100));
+		}		
+		
+		for (var i = 0; i < numbers.length; i++) {
+			speak(numbers[i]);
+		}
+	};
+
+	function getRandomInt(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min)) + min;
+	};
 }());
