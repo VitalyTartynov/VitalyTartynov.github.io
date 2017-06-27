@@ -14,9 +14,8 @@
 	var cancelBtn = document.getElementById('cancel-btn');
 	var textToSpeechEle = document.getElementById('text-to-speech');
 	var voiceSelect = document.getElementById('voice');
-	var volumeRange = document.getElementById('volume');
 	var rateRange = document.getElementById('rate');
-	//	var pitchRange = document.getElementById('pitch');
+	var pitchRange = document.getElementById('pitch');
 	var speechStatus = document.getElementById('speech-status');
 
 	var log = function (message) {
@@ -53,9 +52,8 @@
 					return voice.name === voiceSelect.value;
 				})[0];
 		}
-		synUtterance.volume = parseFloat(volumeRange.value);
 		synUtterance.rate = parseFloat(rateRange.value);
-		//	synUtterance.pitch = parseFloat(pitchRange.value);
+		synUtterance.pitch = parseFloat(pitchRange.value);
 
 		const eventList = ['start', 'end', 'mark', 'pause', 'resume', 'error', 'boundary'];
 		eventList.forEach((event) => {
