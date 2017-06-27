@@ -27,14 +27,6 @@ h1 {
 	margin: 1rem auto;
 }
 
-.speech-status {
-	position: absolute;
-	right: 1.2rem;
-	top: 4rem;
-	width: 2rem;
-	visibility: hidden;
-}
-
 #support-message {
 	position: absolute;
 	top: 0;
@@ -141,24 +133,6 @@ button {
 	transition: all ease-in .5s;
 }
 
-/* Steph Edits */
-
-#parrot-1 {
-	position: absolute;
-	width: 16%;
-	left: 0;
-	top: 30%;
-	z-index: -1;
-}
-
-#parrot-2 {
-	position: absolute;
-	width: 16%;
-	right: 0;
-	top: 50%;
-	z-index: -1;
-}
-
 #speech-bubble {
 	position: relative;
 	top: -.5rem;
@@ -177,25 +151,15 @@ button {
 	padding: .7rem;
 	width: 100%;
 	max-width: 96rem;
-	height: 6rem;
-}
-
-.soundwave {
-	position: absolute;
-	bottom: 0;
-	opacity: .3;
-	z-index: -1;
+	height: 4rem;
 }
 
 .dropdown {
 	height: auto;
+	width: 75%;
 	font-size: 1rem;
 	background-color: hsla(328, 100%, 100%, 1);
 	padding-right: 1.7rem;
-}
-
-.dropdown--voice {
-	width: 25rem;
 }
 
 input[type=range]::-webkit-slider-runnable-track {

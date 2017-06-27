@@ -10,8 +10,6 @@
 	// Getting html elements
 	var supportMessageEle = document.getElementById('support-message');
 	var speakBtn = document.getElementById('speak-btn');
-	var pauseresumeBtn = document.getElementById('pauseresume-btn');
-	var cancelBtn = document.getElementById('cancel-btn');
 	var textToSpeechEle = document.getElementById('text-to-speech');
 	var voiceSelect = document.getElementById('voice');
 	var rateRange = document.getElementById('rate');
@@ -38,6 +36,9 @@
 			var option = document.createElement('option');
 			option.value = voice.name;
 			option.innerHTML = voice.name;
+			if (voice.name == "Microsoft David Desktop - English (United States)") {
+				option.selected = true;
+			}
 			voiceSelect.appendChild(option);
 		});
 	};
