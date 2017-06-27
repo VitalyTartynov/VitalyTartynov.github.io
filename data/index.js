@@ -14,7 +14,6 @@
 	var cancelBtn = document.getElementById('cancel-btn');
 	var textToSpeechEle = document.getElementById('text-to-speech');
 	var voiceSelect = document.getElementById('voice');
-	var langSelect = document.getElementById('language');
 	var volumeRange = document.getElementById('volume');
 	var rateRange = document.getElementById('rate');
 	//	var pitchRange = document.getElementById('pitch');
@@ -54,7 +53,6 @@
 					return voice.name === voiceSelect.value;
 				})[0];
 		}
-		synUtterance.lang = langSelect.value;
 		synUtterance.volume = parseFloat(volumeRange.value);
 		synUtterance.rate = parseFloat(rateRange.value);
 		//	synUtterance.pitch = parseFloat(pitchRange.value);

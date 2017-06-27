@@ -198,10 +198,6 @@ button {
 	width: 25rem;
 }
 
-.dropdown--language {
-	width: 8rem;
-}
-
 input[type=range]::-webkit-slider-runnable-track {
 	background-color: hsla(328, 100%, 100%, 1);
 }
