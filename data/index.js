@@ -4,12 +4,13 @@
 	// Testing for browser support
 	var speechSynthesisSupported = 'speechSynthesis' in window;
 
-	var isPaused = false;
+	var inTestingMode = false;
 	var isPlaying = false;
 
 	// Getting html elements
 	var supportMessageEle = document.getElementById('support-message');
 	var speakBtn = document.getElementById('speak-btn');
+	var testingBtn = document.getElementById('test-btn');
 	var textToSpeechEle = document.getElementById('text-to-speech');
 	var voiceSelect = document.getElementById('voice');
 	var rateRange = document.getElementById('rate');
@@ -77,44 +78,22 @@
 
 	if (speechSynthesisSupported) {
 		speakBtn.addEventListener('click', () => {
-			if (textToSpeechEle.value.length > 0) {
-				speak(textToSpeechEle.value);
+
+			if (window.speechSynthesis.speaking){
+				return;
 			}
+
+			if (textToSpeechEle.value.length == 0) {
+				textToSpeechEle.value = "This sentence isn't question";
+			}
+			speak(textToSpeechEle.value);
 		});
 
-		pauseresumeBtn.addEventListener('click', () => {
-			if (!isPaused) {
-				window.speechSynthesis.pause();
-				isPaused = true;
-				pauseresumeBtn.textContent = 'Resume';
-			} else {
-				window.speechSynthesis.resume();
-				isPaused = false;
-				pauseresumeBtn.textContent = 'Pause';
+		testingBtn.addEventListener('click', () => {
+			if (!inTestingMode) {
+				window.speechSynthesis.cancel();
+				inTestingMode = true;
 			}
-		});
-
-		cancelBtn.addEventListener('click', () => {
-			window.speechSynthesis.cancel();
-		});
-
-		setInterval(() => {
-			if (speechSynthesis.speaking) {
-				speechStatus.style.visibility = 'visible';
-				speechStatus.style.width = '32px';
-				if (!isPlaying) {
-					speechStatus.src = 'images/playingsound.gif?_ts=1498508578861';
-					isPlaying = true;
-				}
-				if (speechSynthesis.paused) {
-					speechStatus.src = 'images/pauseicon.png?_ts=1498508578861';
-					isPlaying = false;
-				}
-			} else {
-				isPlaying = false;
-				speechStatus.src = '';
-				speechStatus.style.visibility = 'hidden';
-			}
-		}, 100);
+		});		
 	}
 }());
