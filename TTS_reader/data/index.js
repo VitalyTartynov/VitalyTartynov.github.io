@@ -5,19 +5,17 @@
 	var speechSynthesisSupported = 'speechSynthesis' in window;
 
 	var inTestingMode = false;
-	var isPlaying = false;
 
-	// Getting html elements
+    // Getting html elements
 	var supportMessageEle = document.getElementById('support-message');
 	var speakBtn = document.getElementById('speak-btn');
 	var testingBtn = document.getElementById('test-btn');
 	var textToSpeechEle = document.getElementById('text-to-speech');
 	var voiceSelect = document.getElementById('voice');
 	var rateRange = document.getElementById('rate');
-	var pitchRange = document.getElementById('pitch');
-	var speechStatus = document.getElementById('speech-status');
+    var pitchRange = document.getElementById('pitch');
 
-	var log = function (message) {
+    var log = function (message) {
 		console.log(`${message}<br/>`);
 	};
 
@@ -37,7 +35,7 @@
 			var option = document.createElement('option');
 			option.value = voice.name;
 			option.innerHTML = voice.name;
-			if (voice.name == "Microsoft David Desktop - English (United States)") {
+			if (voice.name === "Microsoft David Desktop - English (United States)") {
 				option.selected = true;
 			}
 			voiceSelect.appendChild(option);
@@ -76,14 +74,25 @@
 		};
 	}
 
-	if (speechSynthesisSupported) {
+    var testingMode = function () {
+        var numbers = [];
+        for (var i = 0; i < 10; i++) {
+            numbers.push(getRandomInt(0, 100));
+        }
+
+        for (var i = 0; i < numbers.length; i++) {
+            speak(numbers[i]);
+        }
+    };
+
+    if (speechSynthesisSupported) {
 		speakBtn.addEventListener('click', () => {
 
 			if (window.speechSynthesis.speaking){
 				return;
 			}
 
-			if (textToSpeechEle.value.length == 0) {
+			if (textToSpeechEle.value.length === 0) {
 				textToSpeechEle.value = "This sentence isn't question";
 			}
 			speak(textToSpeechEle.value);
@@ -96,21 +105,10 @@
 				testingMode();
 				inTestingMode = false;
 			}
-		});		
-	}
+		});
+    }
 
-	var testingMode = function () {
-		var numbers = [];
-		for (var i = 0; i < 10; i++) {
-			numbers.push(getRandomInt(0, 100));
-		}		
-		
-		for (var i = 0; i < numbers.length; i++) {
-			speak(numbers[i]);
-		}
-	};
-
-	function getRandomInt(min, max) {
+    function getRandomInt(min, max) {
 		min = Math.ceil(min);
 		max = Math.floor(max);
 		return Math.floor(Math.random() * (max - min)) + min;
