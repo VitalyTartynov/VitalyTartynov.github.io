@@ -1,13 +1,10 @@
 /*eslint-env es6 */
 (function () {
 	'use strict';
-	// Testing for browser support
-	var speechSynthesisSupported = 'speechSynthesis' in window;
 
 	var inTestingMode = false;
 
     // Getting html elements
-	var supportMessageEle = document.getElementById('support-message');
 	var speakBtn = document.getElementById('speak-btn');
 	var testingBtn = document.getElementById('test-btn');
 	var textToSpeechEle = document.getElementById('text-to-speech');
@@ -18,13 +15,6 @@
     var log = function (message) {
 		console.log(`${message}<br/>`);
 	};
-
-	if (speechSynthesisSupported) {
-		supportMessageEle.innerHTML = 'Your browser <strong>supports</strong> the speech synthesis.';
-	} else {
-		supportMessageEle.innerHTML = 'Your browser <strong>does not support</strong> speech synthesis.';
-		supportMessageEle.classList.add('unSupported');
-	}
 
 	// Loading available voices for this browser/platform
 	// And displaying them into the combobox
@@ -65,14 +55,12 @@
 		window.speechSynthesis.speak(synUtterance);
 	};
 
-	if (speechSynthesisSupported) {
-		loadVoices();
+	loadVoices();
 
-		// Chrome loads voices asynchronously.
-		window.speechSynthesis.onvoiceschanged = () => {
-			loadVoices();
-		};
-	}
+	// Chrome loads voices asynchronously.
+	window.speechSynthesis.onvoiceschanged = () => {
+		loadVoices();
+	};
 
     var testingMode = function () {
         var numbers = [];
@@ -85,28 +73,26 @@
         }
     };
 
-    if (speechSynthesisSupported) {
-		speakBtn.addEventListener('click', () => {
+    speakBtn.addEventListener('click', () => {
 
-			if (window.speechSynthesis.speaking){
-				return;
-			}
+		if (window.speechSynthesis.speaking){
+			return;
+		}
 
-			if (textToSpeechEle.value.length === 0) {
-				textToSpeechEle.value = "This sentence isn't question";
-			}
-			speak(textToSpeechEle.value);
-		});
+		if (textToSpeechEle.value.length === 0) {
+			textToSpeechEle.value = "This sentence isn't question";
+		}
+		speak(textToSpeechEle.value);
+	});
 
-		testingBtn.addEventListener('click', () => {
-			if (!inTestingMode) {
-				window.speechSynthesis.cancel();
-				inTestingMode = true;
-				testingMode();
-				inTestingMode = false;
-			}
-		});
-    }
+	testingBtn.addEventListener('click', () => {
+		if (!inTestingMode) {
+			window.speechSynthesis.cancel();
+			inTestingMode = true;
+			testingMode();
+			inTestingMode = false;
+		}
+	});
 
     function getRandomInt(min, max) {
 		min = Math.ceil(min);

@@ -6,11 +6,11 @@
 	    <meta name="description" content="Enter text and play it back as speech with different voices and settings">
 	    <meta name="keywords" content="speech, synthesis, text-to-speech, SSML">
 	    <meta name="author" content="jdsmith3000, ststimac, stevebe">
-	    <link rel="stylesheet" href="./data/style.css">
+        <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../libs/bootstrap/css/2-col-portfolio.css" rel="stylesheet">
     </head>
     <body>
         <div id="container">
-            <div id="support-message" class="support-message">Your browser <strong>supports</strong> the speech synthesis.</div>
             <div id="text-container">
                 <label for="text-to-speech" class="custom-label">Enter text to be turned into speech</label>
                 <input type="text" name="textToSpeech" id="text-to-speech" placeholder="Example: This sentence isn't question">
@@ -33,6 +33,8 @@
                 <button id="test-btn">Test numbers</button>
             </div>
         </div>
-        <script src="./data/index.js"></script>
+        <script src="../js/speechSynthesis.js"></script>
+        <script src="../libs/bootstrap/js/jquery.js"></script>
+        <script src="../libs/bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
