@@ -1,0 +1,22 @@
+{
+  "name": "githubpages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VitalyTartynov/VitalyTartynov.github.io.git"
+  },
+  "author": "Vitaly.Tartynov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VitalyTartynov/VitalyTartynov.github.io/issues"
+  },
+  "homepage": "https://github.com/VitalyTartynov/VitalyTartynov.github.io#readme",
+  "devDependencies": {
+    "three": "^0.104.0"
+  }
+}

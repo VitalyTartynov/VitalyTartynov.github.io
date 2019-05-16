@@ -1,116 +1,127 @@
 /*eslint-env es6 */
 (function () {
-	'use strict';
-	// Testing for browser support
-	var speechSynthesisSupported = 'speechSynthesis' in window;
+  "use strict";
+  // Testing for browser support
+  var speechSynthesisSupported = "speechSynthesis" in window;
 
-	var inTestingMode = false;
+  var inTestingMode = false;
 
-    // Getting html elements
-	var supportMessageEle = document.getElementById('support-message');
-	var speakBtn = document.getElementById('speak-btn');
-	var testingBtn = document.getElementById('test-btn');
-	var textToSpeechEle = document.getElementById('text-to-speech');
-	var voiceSelect = document.getElementById('voice');
-	var rateRange = document.getElementById('rate');
-    var pitchRange = document.getElementById('pitch');
+  // Getting html elements
+  var supportMessageEle = document.getElementById("support-message");
+  var speakBtn = document.getElementById("speak-btn");
+  var testingBtn = document.getElementById("test-btn");
+  var textToSpeechEle = document.getElementById("text-to-speech");
+  var voiceSelect = document.getElementById("voice");
+  var rateRange = document.getElementById("rate");
+  var pitchRange = document.getElementById("pitch");
 
-    var log = function (message) {
-		console.log(`${message}<br/>`);
-	};
+  var log = function (message) {
+    console.log(`${message}<br/>`);
+  };
 
-	if (speechSynthesisSupported) {
-		supportMessageEle.innerHTML = 'Your browser <strong>supports</strong> the speech synthesis.';
-	} else {
-		supportMessageEle.innerHTML = 'Your browser <strong>does not support</strong> speech synthesis.';
-		supportMessageEle.classList.add('unSupported');
-	}
+  if (speechSynthesisSupported) {
+    supportMessageEle.innerHTML =
+      "Your browser <strong>supports</strong> the speech synthesis.";
+  } else {
+    supportMessageEle.innerHTML =
+      "Your browser <strong>does not support</strong> speech synthesis.";
+    supportMessageEle.classList.add("unSupported");
+  }
 
-	// Loading available voices for this browser/platform
-	// And displaying them into the combobox
-	var loadVoices = function () {
-		var voices = speechSynthesis.getVoices();
+  // Loading available voices for this browser/platform
+  // And displaying them into the combobox
+  var loadVoices = function () {
+    var voices = speechSynthesis.getVoices();
 
-		voices.forEach((voice) => {
-			var option = document.createElement('option');
-			option.value = voice.name;
-			option.innerHTML = voice.name;
-			if (voice.name === "Microsoft David Desktop - English (United States)") {
-				option.selected = true;
-			}
-			voiceSelect.appendChild(option);
-		});
-	};
+    voices.forEach(voice => {
+      var option = document.createElement("option");
+      option.value = voice.name;
+      option.innerHTML = voice.name;
+      if (voice.name === "Microsoft David Desktop - English (United States)") {
+        option.selected = true;
+      }
+      voiceSelect.appendChild(option);
+    });
+  };
 
-	var speak = function (textToSpeech) {
-		var synUtterance = new SpeechSynthesisUtterance();
-		synUtterance.text = textToSpeech;
-		if (voiceSelect.value) {
-			synUtterance.voice = speechSynthesis
-				.getVoices()
-				.filter(function (voice) {
-					return voice.name === voiceSelect.value;
-				})[0];
-		}
-		synUtterance.rate = parseFloat(rateRange.value);
-		synUtterance.pitch = parseFloat(pitchRange.value);
+  var speak = function (textToSpeech) {
+    var synUtterance = new SpeechSynthesisUtterance();
+    synUtterance.text = textToSpeech;
+    if (voiceSelect.value) {
+      synUtterance.voice = speechSynthesis.getVoices().filter(function (voice) {
+        return voice.name === voiceSelect.value;
+      })[0];
+    }
+    synUtterance.rate = parseFloat(rateRange.value);
+    synUtterance.pitch = parseFloat(pitchRange.value);
 
-		const eventList = ['start', 'end', 'mark', 'pause', 'resume', 'error', 'boundary'];
-		eventList.forEach((event) => {
-			synUtterance.addEventListener(event, (speechSynthesisEvent) => {
-				log(`Fired '${speechSynthesisEvent.type}' event at time '${speechSynthesisEvent.elapsedTime}' and character '${speechSynthesisEvent.charIndex}'.`);
-			});
-		});
+    const eventList = [
+      "start",
+      "end",
+      "mark",
+      "pause",
+      "resume",
+      "error",
+      "boundary"
+    ];
+    eventList.forEach(event => {
+      synUtterance.addEventListener(event, speechSynthesisEvent => {
+        log(
+          `Fired '${speechSynthesisEvent.type}' event at time '${
+            speechSynthesisEvent.elapsedTime
+          }' and character '${speechSynthesisEvent.charIndex}'.`
+        );
+      });
+    });
 
-		window.speechSynthesis.speak(synUtterance);
-	};
+    window.speechSynthesis.speak(synUtterance);
+  };
 
-	if (speechSynthesisSupported) {
-		loadVoices();
+  if (speechSynthesisSupported) {
+    loadVoices();
 
-		// Chrome loads voices asynchronously.
-		window.speechSynthesis.onvoiceschanged = () => {
-			loadVoices();
-		};
-	}
-
-    var testingMode = function () {
-        var numbers = [];
-        for (var i = 0; i < 10; i++) {
-            numbers.push(getRandomInt(0, 100));
-        }
-
-        for (var i = 0; i < numbers.length; i++) {
-            speak(numbers[i]);
-        }
+    // Chrome loads voices asynchronously.
+    window.speechSynthesis.onvoiceschanged = () => {
+      loadVoices();
     };
+  }
 
-    if (speechSynthesisSupported) {
-		speakBtn.addEventListener('click', () => {
-
-			if (window.speechSynthesis.speaking){
-				return;
-			}
-
-			if (textToSpeechEle.value.length === 0) {
-				textToSpeechEle.value = "This sentence isn't question";
-			}
-			speak(textToSpeechEle.value);
-		});
-
-		testingBtn.addEventListener('click', () => {
-			if (!inTestingMode) {
-				window.speechSynthesis.cancel();
-				inTestingMode = true;
-				testingMode();
-				inTestingMode = false;
-			}
-		});
+  var testingMode = function () {
+    var numbers = [];
+    for (var i = 0; i < 10; i++) {
+      numbers.push(getRandomInt(0, 100));
     }
 
-    function getRandomInt(min, max) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min)) + min;
-	};
-}());
+    for (var i = 0; i < numbers.length; i++) {
+      speak(numbers[i]);
+    }
+  };
+
+  if (speechSynthesisSupported) {
+    speakBtn.addEventListener("click", () => {
+      if (window.speechSynthesis.speaking) {
+        return;
+      }
+
+      if (textToSpeechEle.value.length === 0) {
+        textToSpeechEle.value = "This sentence isn't question";
+      }
+      speak(textToSpeechEle.value);
+    });
+
+    testingBtn.addEventListener("click", () => {
+      if (!inTestingMode) {
+        window.speechSynthesis.cancel();
+        inTestingMode = true;
+        testingMode();
+        inTestingMode = false;
+      }
+    });
+  }
+
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+})();
