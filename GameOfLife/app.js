@@ -87,6 +87,7 @@ app.controller('gameOfLifeCtrl', function ($scope, $interval) {
   $scope.startGame(true);
 
   $scope.clear = function () {
+    $scope.generation = 0;
     for (var i = 0; i < rowMax; i++) {
       for (var j = 0; j < colMax; j++) {
         $scope.rows[i].cols[j].active = 0;
