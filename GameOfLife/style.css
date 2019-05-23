@@ -1,0 +1,50 @@
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table {
+  margin: auto;
+  background-color: whitesmoke;
+}
+
+td {
+  width: 10px;
+  height: 10px;
+}
+
+.new {
+  background-color: rgba(22, 113, 216, 0.555);
+}
+
+.old {
+  background-color: rgb(22, 112, 216);
+}
+
+.components {
+  display: flex;
+  margin: auto;
+  width: 280px;
+  padding: 10px
+}
+
+a:link {
+  color: orangered;
+  text-decoration: none
+}
+
+a:visited {
+  color: orangered;
+  text-decoration: none
+}
+
+a:hover {
+  color: red;
+  text-decoration: underline
+}
+
+#footerSvg {
+  width: 32px;
+}

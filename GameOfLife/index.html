@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>Game Of Life</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div ng-app="gameOfLifeApp" ng-controller="gameOfLifeCtrl">
+    <h3 style="text-align: center">Game Of Life</h3>
+
+    <div class="components">
+      <button ng-click="stopGame();">Stop</button>
+      <button ng-click="startGame(false);">Start</button>
+      <button ng-click="clear();">Clear</button>
+      Generation: {{generation}}
+    </div>
+
+    <table>
+      <tr ng-repeat='row in rows'>
+        <td ng-click=activate(rows.indexOf(row),$index) ng-repeat='col in row.cols'
+          ng-class="{'new':col.active == 1, 'old':col.active >1 }">
+      </tr>
+    </table>
+  </div>
+
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js'></script>
+  <script src="app.js"></script>
+</body>
+</html>
